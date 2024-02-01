@@ -25,7 +25,7 @@ function Recipe({onClose, data}) {
         <img className="recipe__img" src={data.strDrinkThumb} alt="cocktail" />
         <ul className='recipe__ingredients'>
         {ingredients.map(({ingredient,measure})=>(
-            <li key={ingredient}>{measure} - {ingredient}</li>
+            <li className="recipe__margin" key={ingredient}>{measure} - {ingredient}</li>
           ))}
         </ul>
         <p className='recipe__desc'>{data.strInstructions}</p>   
