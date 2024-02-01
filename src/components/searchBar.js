@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import Card from "./card";
 import "../App.css";
@@ -14,7 +15,7 @@ function SearchBar() {
 
     const fetchData = async () => {
       try {
-
+        
         const response = await fetch(
           `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchStr}`
         );
@@ -24,10 +25,13 @@ function SearchBar() {
       } catch (error) {
         console.log(error);
       }
-      
+
     };
 
-    fetchData();
+    //Beyond Single Alphabet filter
+    searchStr.length===1 ? 
+      fetchData() : setSearchResults(searchResults.filter((ele)=>ele.strDrink.toLowerCase().includes(searchStr.toLowerCase())))
+
   }, [searchStr]);
 
 
@@ -46,7 +50,7 @@ function SearchBar() {
       </div>
       <div className="cocktail-container">
           {
-           searchStr && searchResults.length==0 ?
+           searchStr && searchResults.length===0 ?
             (<h1 style={{color:"red"}}>NO result for {searchStr.toUpperCase()}</h1>):(<></>) 
           }
         {searchResults.map((res) => 
