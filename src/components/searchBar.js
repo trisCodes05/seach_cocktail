@@ -49,10 +49,11 @@ function SearchBar() {
         />
       </div>
       <div className="cocktail-container">
-          {
-           searchStr && searchResults.length===0 ?
-            (<h1 style={{color:"red"}}>NO result for {searchStr.toUpperCase()}</h1>):(<></>) 
-          }
+        {/* fixed edge Case of X */}
+        {searchStr[0] && searchStr[0].toLowerCase()==='x' && <h1>Sorry, NO Result for X 😔</h1>}
+          
+          {searchStr && searchResults.length===0 && <span class="loader"/> }
+
         {searchResults.map((res) => 
            <Card
             key={res.idDrink}

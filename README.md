@@ -1,4 +1,4 @@
-# Simple React Project to Search Cocktails using first letter only
+# Simple React Project to Search Cocktails
 
 This project uses API from - TheCocktailDB.com
 
