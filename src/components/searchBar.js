@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import Card from "./card";
 import "../App.css";
@@ -14,19 +15,25 @@ function SearchBar() {
 
     const fetchData = async () => {
       try {
+        
         const response = await fetch(
           `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchStr}`
         );
         const data = await response.json();
-        setSearchResults(data.drinks);
-        console.log("res", data.drinks);
+        setSearchResults(data.drinks || []); //Handel Null Data
+
       } catch (error) {
         console.log(error);
       }
+
     };
 
-    fetchData();
+    //Beyond Single Alphabet filter
+    searchStr.length===1 ? 
+      fetchData() : setSearchResults(searchResults.filter((ele)=>ele.strDrink.toLowerCase().includes(searchStr.toLowerCase())))
+
   }, [searchStr]);
+
 
   return (
     <div>
@@ -42,14 +49,19 @@ function SearchBar() {
         />
       </div>
       <div className="cocktail-container">
-        {searchResults.map((res) => (
-          <Card
+        {/* fixed edge Case of X */}
+        {searchStr[0] && searchStr[0].toLowerCase()==='x' && <h1>Sorry, NO Result for X 😔</h1>}
+          
+        {searchStr.length===1 && searchResults.length===0 && <span class="loader"/> }
+
+        {searchResults.map((res) => 
+           <Card
             key={res.idDrink}
             name={res.strDrink}
             imgUrl={res.strDrinkThumb}
             otherResults={res}
-          />
-        ))}
+          /> 
+        )}
       </div>
     </div>
   );
