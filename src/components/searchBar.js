@@ -14,19 +14,22 @@ function SearchBar() {
 
     const fetchData = async () => {
       try {
+
         const response = await fetch(
           `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchStr}`
         );
         const data = await response.json();
-        setSearchResults(data.drinks);
-        console.log("res", data.drinks);
+        setSearchResults(data.drinks || []); //Handel Null Data
+
       } catch (error) {
         console.log(error);
       }
+      
     };
 
     fetchData();
   }, [searchStr]);
+
 
   return (
     <div>
@@ -42,14 +45,18 @@ function SearchBar() {
         />
       </div>
       <div className="cocktail-container">
-        {searchResults.map((res) => (
-          <Card
+          {
+           searchStr && searchResults.length==0 ?
+            (<h1 style={{color:"red"}}>NO result for {searchStr.toUpperCase()}</h1>):(<></>) 
+          }
+        {searchResults.map((res) => 
+           <Card
             key={res.idDrink}
             name={res.strDrink}
             imgUrl={res.strDrinkThumb}
             otherResults={res}
-          />
-        ))}
+          /> 
+        )}
       </div>
     </div>
   );
