@@ -52,7 +52,7 @@ function SearchBar() {
         {/* fixed edge Case of X */}
         {searchStr[0] && searchStr[0].toLowerCase()==='x' && <h1>Sorry, NO Result for X 😔</h1>}
           
-        {searchStr && searchResults.length===0 && <span class="loader"/> }
+        {searchStr.length===1 && searchResults.length===0 && <span class="loader"/> }
 
         {searchResults.map((res) => 
            <Card
