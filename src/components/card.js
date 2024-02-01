@@ -7,7 +7,6 @@ function Card({name,imgUrl,otherResults}) {
   const [modalData, setModalData] = useState('');
 
   const openModal = (data) => {
-    console.log("data",data)
     setModalData(data);
     setModalOpen(true);
   }
